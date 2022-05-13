@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'receiptApp-angular';
+  currentScreen:string = 'recipe';
+
+  onNavigate(screen:{buttonType:string}){
+    this.currentScreen = screen.buttonType;
+  }
 }
