@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from "@angular/core";
+import {Component} from "@angular/core";
+
 
 @Component(
   {
@@ -8,12 +9,4 @@ import {Component, EventEmitter, Output} from "@angular/core";
   }
 )
 export class HeaderComponent {
-  @Output() navigationClick = new EventEmitter<{ buttonType: String }>();
-
-  onSelect(feature:string) {
-    this.navigationClick.emit({buttonType: feature})
-  }
-
-
-
 }

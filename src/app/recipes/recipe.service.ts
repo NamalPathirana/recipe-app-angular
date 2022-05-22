@@ -9,17 +9,17 @@ export class RecipeService {
   recipeSelected = new EventEmitter<RecipeModel>();
 
   recipes: RecipeModel[] = [
-    new RecipeModel('A test recipe', 'definitely a test',
+    new RecipeModel(0,'A test recipe', 'definitely a test',
       'https://img.delicious.com.au/' +
       'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
       ,[new Ingredient('tomato',2),new Ingredient('chicken',1)]
     ),
-    new RecipeModel('A new Dish', 'Food association approved',
+    new RecipeModel(1,'A new Dish', 'Food association approved',
       'https://img.delicious.com.au/' +
       'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
       ,[new Ingredient('basil',4),new Ingredient('cheese',1)]
     ),
-    new RecipeModel('breakfast', 'new york times',
+    new RecipeModel(2,'breakfast', 'new york times',
       'https://img.delicious.com.au/' +
       'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg',
       [new Ingredient('olive',5),new Ingredient('pepper',1)])
@@ -31,6 +31,10 @@ export class RecipeService {
 
   getRecipes(){
     return this.recipes.slice();
+  }
+
+  getRecipe(id:number):RecipeModel{
+    return this.recipes.find(item=>item.id===id);
   }
 
   addToShoppingList(ingredient:Ingredient[]){

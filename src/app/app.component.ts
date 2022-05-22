@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Route} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'receiptApp-angular';
-  currentScreen:string = 'recipe';
+
+  constructor() {
+  }
 
   onNavigate(screen:{buttonType:string}){
-    this.currentScreen = screen.buttonType;
   }
 }
