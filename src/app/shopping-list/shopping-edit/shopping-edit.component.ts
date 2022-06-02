@@ -1,5 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {ShoppingListService} from "../shoppingList.service";
+import {NgForm} from "@angular/forms";
+import {Ingredient} from "../../shared/ingredient.module";
 
 @Component({
   selector: 'app-shopping-edit',
@@ -7,30 +9,52 @@ import {ShoppingListService} from "../shoppingList.service";
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
-  @ViewChild('nameInput', {static: true}) nameInput: ElementRef;
-  @ViewChild('amountInput', {static: true}) amountInput: ElementRef;
+
+  @ViewChild('f',{static:false}) listEditForm:NgForm;
+  editMode = false;
+  editIndex:number;
+  editingItem:Ingredient;
 
   constructor(private shoppingListService: ShoppingListService) {
   }
 
   ngOnInit(): void {
-  }
-
-  onAdd() {
-    this.shoppingListService.addIngredient(
-      {
-        name: this.nameInput.nativeElement.value,
-        amount: this.amountInput.nativeElement.value
+    this.shoppingListService.startedEditing.subscribe(
+      (index:number)=>{
+        this.editMode=true;
+        this.editIndex = index;
+        this.editingItem = this.shoppingListService.getIngredientByIndex(index);
+        this.listEditForm.setValue({
+          'name':this.editingItem.name,
+          'amount':this.editingItem.amount
+        });
       }
     );
   }
 
+  onAdd() {
+    const value = this.listEditForm.value;
+    const newIngredient = new Ingredient(value.name,value.amount);
+    if(this.editMode){
+      this.shoppingListService.onUpdateIngredient(this.editIndex,newIngredient);
+    }else{
+      this.shoppingListService.addIngredient(
+        newIngredient
+      );
+      console.log(this.listEditForm);
+    }
+    this.listEditForm.reset();
+    this.editMode = false;
+  }
+
   onDelete() {
+    this.onClear();
+    this.shoppingListService.onDeleteIngredient(this.editIndex);
   }
 
   onClear() {
-    this.nameInput.nativeElement.value = ''
-    this.amountInput.nativeElement.value = ''
+    this.listEditForm.reset();
+    this.editMode = false;
   }
 
 }
