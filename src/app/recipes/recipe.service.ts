@@ -9,26 +9,32 @@ export class RecipeService {
 
   recipeChangeEmitter = new Subject<RecipeModel[]>();
 
-  recipes: RecipeModel[] = [
-    new RecipeModel(0,'A test recipe', 'definitely a test',
-      'https://img.delicious.com.au/' +
-      'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
-      ,[new Ingredient('tomato',2),new Ingredient('chicken',1)]
-    ),
-    new RecipeModel(1,'A new Dish', 'Food association approved',
-      'https://img.delicious.com.au/' +
-      'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
-      ,[new Ingredient('basil',4),new Ingredient('cheese',1)]
-    ),
-    new RecipeModel(2,'breakfast', 'new york times',
-      'https://img.delicious.com.au/' +
-      'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg',
-      [new Ingredient('olive',5),new Ingredient('pepper',1)])
-  ];
+  // recipes: RecipeModel[] = [
+  //   new RecipeModel(0,'A test recipe', 'definitely a test',
+  //     'https://img.delicious.com.au/' +
+  //     'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
+  //     ,[new Ingredient('tomato',2),new Ingredient('chicken',1)]
+  //   ),
+  //   new RecipeModel(1,'A new Dish', 'Food association approved',
+  //     'https://img.delicious.com.au/' +
+  //     'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg'
+  //     ,[new Ingredient('basil',4),new Ingredient('cheese',1)]
+  //   ),
+  //   new RecipeModel(2,'breakfast', 'new york times',
+  //     'https://img.delicious.com.au/' +
+  //     'fVd1u6k7/w1200/del/2022/02/chicken-chickpea-curry-163942-1.jpg',
+  //     [new Ingredient('olive',5),new Ingredient('pepper',1)])
+  // ];
+
+  recipes:RecipeModel[] = [];
 
   constructor(private shoppingList:ShoppingListService) {
   }
 
+  setRecipes(recipes:RecipeModel[]){
+    this.recipes = recipes;
+    this.recipeChangeEmitter.next(recipes.slice());
+  }
 
   getRecipes(){
     return this.recipes.slice();

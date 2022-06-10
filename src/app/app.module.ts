@@ -15,6 +15,8 @@ import {ShoppingListService} from "./shopping-list/shoppingList.service";
 import {AppRoutingModule} from "./app-routing.module";
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { HttpClientModule} from "@angular/common/http";
+import { AuthComponent } from './auth/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -28,14 +30,16 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     ShoppingEditComponent,
     DropdownDirective,
     ErrorPageComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     CommonModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
